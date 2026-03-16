@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f7f7f7;
+}
+
+#root {
+  padding: 40px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
