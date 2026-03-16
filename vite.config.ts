@@ -9,12 +9,17 @@ export default defineConfig({
       entry: "src/index.ts",
       name: "ReactImageCycle",
       fileName: (format) => `react-image-cycle.${format}.js`,
-      formats: ["es"],
+      formats: ["es", "umd"],
     },
     rollupOptions: {
       // external packages that should not be bundled
       external: ["react", "react-dom"],
-      output: {},
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+        },
+      },
     },
     sourcemap: true,
   },
