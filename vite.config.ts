@@ -1,25 +1,28 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
+import { resolve } from "node:path";
 
 export default defineConfig({
-  plugins: [react(), dts({ insertTypesEntry: true })],
+  plugins: [
+    // Switching to 'classic' is mandatory to remove 'require' calls
+    // for jsx-runtime that crash Next.js 16.
+    react({ jsxRuntime: "classic" }),
+    dts({ insertTypesEntry: true }),
+  ],
   build: {
     lib: {
-      entry: "src/index.ts",
+      // Use an absolute path. Verify if it is .ts or .tsx!
+      entry: resolve(__dirname, "src/index.tsx"),
       name: "ReactImageCycle",
       fileName: (format) => `react-image-cycle.${format}.js`,
-      formats: ["es"], // Use only 'es' to avoid CJS shims in Next.js
+      formats: ["es"],
     },
     rollupOptions: {
-      // MANDATORY: Externalize all React entry points to prevent 'require' injection
+      // Externalize react/jsx-runtime specifically
       external: ["react", "react-dom", "react/jsx-runtime"],
       output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          "react/jsx-runtime": "jsxRuntime",
-        },
+        format: "es",
       },
     },
   },
