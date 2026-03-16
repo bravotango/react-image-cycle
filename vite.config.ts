@@ -5,25 +5,18 @@ import { resolve } from "node:path";
 
 export default defineConfig({
   plugins: [
-    // Switching to 'classic' is mandatory to remove 'require' calls
-    // for jsx-runtime that crash Next.js 16.
-    react({ jsxRuntime: "classic" }),
+    react(), // ← remove jsxRuntime: "classic"
     dts({ insertTypesEntry: true }),
   ],
   build: {
     lib: {
-      // Use an absolute path. Verify if it is .ts or .tsx!
-      entry: resolve(__dirname, "src/index.tsx"),
+      entry: resolve(__dirname, "src/index.ts"),
       name: "ReactImageCycle",
       fileName: (format) => `react-image-cycle.${format}.js`,
       formats: ["es"],
     },
     rollupOptions: {
-      // Externalize react/jsx-runtime specifically
-      external: ["react", "react-dom", "react/jsx-runtime"],
-      output: {
-        format: "es",
-      },
+      external: ["react", "react-dom"],
     },
   },
 });
