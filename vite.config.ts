@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: resolve(__dirname, "src/index.tsx"),
       name: "ReactImageCycle",
       fileName: (format) => `react-image-cycle.${format}.js`,
       formats: ["es"],

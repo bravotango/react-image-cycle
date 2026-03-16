@@ -17,7 +17,7 @@
     "declaration": true,
     "declarationDir": "dist",
 
-    "jsx": "react-jsx",
+    "jsx": "react",
 
     "strict": true,
     "noUnusedLocals": true,
