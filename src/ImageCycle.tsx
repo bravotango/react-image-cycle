@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
-import { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 
 export interface ImageCycleProps {
   images: string[];
-  interval?: number; // ms
+  interval?: number;
   width?: number;
   height?: number;
 }
