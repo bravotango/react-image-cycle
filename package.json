@@ -1,6 +1,6 @@
 {
   "name": "@bravotango/react-image-cycle",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A simple React component to cycle through image sequences for animations.",
   "author": "Brian Tracy",
   "license": "MIT",
@@ -21,8 +21,14 @@
     "react-dom": "^18 || ^19"
   },
   "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.0",
+    "rollup-plugin-preserve-use-client": "^3.0.1",
     "typescript": "^5.9.3",
-    "vite": "^8.0.0",
-    "@vitejs/plugin-react": "^6.0.0"
+    "vite": "^8.0.0"
+  },
+  "dependencies": {
+    "vite-plugin-dts": "^4.5.4"
   }
 }
