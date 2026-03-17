@@ -1,6 +1,6 @@
 {
   "name": "@bravotango/react-image-cycle",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "A simple React component to cycle through image sequences for animations.",
   "author": "Brian Tracy",
   "license": "MIT",
