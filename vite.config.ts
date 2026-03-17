@@ -1,29 +1,33 @@
+// vite.config.ts (in your library)
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import { resolve } from "node:path";
-import preserveUseClient from "rollup-plugin-preserve-use-client"; // Import the plugin
 
 export default defineConfig({
-  plugins: [react(), dts({ insertTypesEntry: true })],
+  plugins: [
+    // This is the most important part for Next.js 16.
+    // It tells Vite NOT to inject 'react/jsx-runtime' shims.
+    react({ jsxRuntime: "classic" }),
+    dts({ insertTypesEntry: true }),
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.tsx"),
       name: "ReactImageCycle",
       fileName: (format) => `react-image-cycle.${format}.js`,
-      formats: ["es"],
+      formats: ["es"], // Only ship ES modules
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
-      // Add the plugin here
-      plugins: [preserveUseClient()],
+      // If it's not here, it might be bundled with a 'require' call!
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+      ],
       output: {
-        // Optional: preserves file structure, making 'use client' more granular
-        preserveModules: true,
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-        },
+        format: "es",
       },
     },
   },
