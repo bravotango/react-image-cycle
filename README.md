@@ -1,73 +1,119 @@
-# React + TypeScript + Vite
+# @bravotango/react-image-cycle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight React component for cycling through a sequence of images to create simple frame-by-frame animations.
 
-Currently, two official plugins are available:
+Perfect for:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Sprite animations (games, characters, UI effects)
+- GIF-like behavior using individual image files
+- Lightweight animations without canvas or video
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Install
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install @bravotango/react-image-cycle
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Usage
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Basic Example
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```jsx
+import { ImageCycle } from "@bravotango/react-image-cycle";
+
+const images = [
+  "/images/1.png",
+  "/images/2.png",
+  "/images/3.png",
+  "/images/4.png",
+];
+
+export default function App() {
+  return <ImageCycle images={images} interval={300} width={150} height={150} />;
+}
 ```
+
+### Next.js Example
+
+This component uses `useEffect`, so it must run on the client:
+
+```jsx
+"use client";
+
+import { ImageCycle } from "@bravotango/react-image-cycle";
+
+export default function Frog() {
+  const images = [
+    "/frog/1.png",
+    "/frog/2.png",
+    "/frog/3.png",
+    "/frog/4.png",
+    "/frog/5.png",
+  ];
+
+  return <ImageCycle images={images} interval={300} width={50} height={39} />;
+}
+```
+
+---
+
+## Props
+
+| Prop       | Type       | Default | Description                         |
+| ---------- | ---------- | ------- | ----------------------------------- |
+| `images`   | `string[]` | —       | Array of image URLs (required)      |
+| `interval` | `number`   | `300`   | Time in milliseconds between frames |
+| `width`    | `number`   | `150`   | Width of the image                  |
+| `height`   | `number`   | `150`   | Height of the image                 |
+
+---
+
+## How It Works
+
+- Cycles through an array of image URLs using `setInterval`
+- Loops automatically back to the first image
+- Renders a single `<img>` element and swaps the `src`
+
+---
+
+## Notes
+
+- If `images` is empty or undefined, nothing is rendered
+- Ensure all images are the same dimensions for smooth animation
+- This component does not preload images (consider preloading for large sequences)
+
+---
+
+## Combining with CSS Animations
+
+You can combine this with CSS for movement:
+
+```css
+@keyframes move {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.sprite {
+  position: absolute;
+  animation: move 6s linear infinite;
+}
+```
+
+---
+
+## Development
+
+This package is built using TypeScript and Vite, but no Vite setup is required to use it.
+
+---
+
+## License
+
+MIT
