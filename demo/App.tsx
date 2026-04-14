@@ -3,7 +3,6 @@ import { ImageCycle } from "../src";
 
 const frogImages = [
   "/assets/frog/1.png",
-  "/assets/frog/1.png",
   "/assets/frog/2.png",
   "/assets/frog/3.png",
   "/assets/frog/4.png",
@@ -30,7 +29,13 @@ export default function App() {
     <div>
       <h1>react-image-cycle demo</h1>
 
-      <ImageCycle images={images} interval={300} width={150} height={150} />
+      <ImageCycle
+        images={images}
+        interval={300}
+        width={150}
+        height={150}
+        showFrameDots={true}
+      />
 
       <div style={{ marginTop: 20 }}>
         <label htmlFor="image-select" style={{ marginRight: 8 }}>
