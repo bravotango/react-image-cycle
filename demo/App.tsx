@@ -31,11 +31,12 @@ export default function App() {
 
       <ImageCycle
         images={images}
-        interval={300}
+        interval={200}
         width={150}
         height={150}
         showFrameDots={true}
         className="bg-pink"
+        fadeInOut={false}
       />
 
       <fieldset style={{ border: "none", padding: 0, margin: 0 }}>
