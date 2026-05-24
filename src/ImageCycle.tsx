@@ -8,14 +8,16 @@ export interface ImageCycleProps {
   width?: number;
   height?: number;
   showFrameDots?: boolean;
+  className?: string;
 }
 
 export const ImageCycle = ({
   images,
-  interval = 300,
+  interval = 1000,
   width = 150,
   height = 150,
   showFrameDots = false,
+  className,
 }: ImageCycleProps) => {
   const [index, setIndex] = useState(0);
 
@@ -44,6 +46,7 @@ export const ImageCycle = ({
         height={height}
         alt={`frame ${index}`}
         style={{ display: "block" }}
+        className={className}
       />
       {showFrameDots && (
         <div style={{ display: "flex", gap: 4 }}>
