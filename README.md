@@ -31,7 +31,15 @@ const images = [
 ];
 
 export default function App() {
-  return <ImageCycle images={images} interval={300} width={150} height={150} />;
+  return (
+    <ImageCycle
+      images={images}
+      interval={300}
+      width={150}
+      height={150}
+      className={"your-css-classes"}
+    />
+  );
 }
 ```
 
@@ -68,6 +76,7 @@ export default function Frog() {
 | `width`         | `number`   | `150`   | Width of the image                                 |
 | `height`        | `number`   | `150`   | Height of the image                                |
 | `showFrameDots` | `boolean`  | `false` | Show indicator dots below the image, one per frame |
+| `className`     | `string`   | `false` | All your class names separated by spaces           |
 
 ---
 
