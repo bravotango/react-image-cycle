@@ -69,14 +69,15 @@ export default function Frog() {
 
 ## Props
 
-| Prop            | Type       | Default | Description                                        |
-| --------------- | ---------- | ------- | -------------------------------------------------- |
-| `images`        | `string[]` | —       | Array of image URLs (required)                     |
-| `interval`      | `number`   | `300`   | Time in milliseconds between frames                |
-| `width`         | `number`   | `150`   | Width of the image                                 |
-| `height`        | `number`   | `150`   | Height of the image                                |
-| `showFrameDots` | `boolean`  | `false` | Show indicator dots below the image, one per frame |
-| `className`     | `string`   | `false` | All your class names separated by spaces           |
+| Prop            | Type       | Default           | Description                                        |
+| --------------- | ---------- | ----------------- | -------------------------------------------------- |
+| `images`        | `string[]` | —                 | Array of image URLs (required)                     |
+| `interval`      | `number`   | `300`             | Time in milliseconds between frames                |
+| `width`         | `number`   | `150`             | Width of the image                                 |
+| `height`        | `number`   | `150`             | Height of the image                                |
+| `showFrameDots` | `boolean`  | `false`           | Show indicator dots below the image, one per frame |
+| `className`     | `string`   | `css class names` | All your class names separated by spaces           |
+| `fadeInOut`     | `boolean`  | `false`           | Fade in and out transition                         |
 
 ---
 

@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 
 export interface ImageCycleProps {
@@ -9,6 +7,7 @@ export interface ImageCycleProps {
   height?: number;
   showFrameDots?: boolean;
   className?: string;
+  fadeInOut?: boolean;
 }
 
 export const ImageCycle = ({
@@ -18,16 +17,31 @@ export const ImageCycle = ({
   height = 150,
   showFrameDots = false,
   className,
+  fadeInOut = false,
 }: ImageCycleProps) => {
-  const [index, setIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [opacity, setOpacity] = useState(1);
+
+  // Each fade-out + fade-in = fadeDuration * 2, cap at 30% of interval total
+  const fadeDuration = fadeInOut
+    ? interval / 4 // ? Math.min(transitionDuration ?? Infinity, interval * 0.15)
+    : 0;
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
+    const timer = setInterval(() => {
+      if (fadeDuration > 0) {
+        setOpacity(0); // start fade out
+        setTimeout(() => {
+          setCurrentIndex((prev) => (prev + 1) % images.length);
+          setOpacity(1); // start fade in with new src
+        }, fadeDuration); // wait for fade-out to finish
+      } else {
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+      }
     }, interval);
 
-    return () => clearInterval(id);
-  }, [images, interval]);
+    return () => clearInterval(timer);
+  }, [images, interval, fadeDuration]);
 
   if (!images || images.length === 0) return null;
 
@@ -41,12 +55,19 @@ export const ImageCycle = ({
       }}
     >
       <img
-        src={images[index]}
+        src={images[currentIndex]}
         width={width}
         height={height}
-        alt={`frame ${index}`}
-        style={{ display: "block" }}
+        alt={`frame ${currentIndex}`}
         className={className}
+        style={{
+          display: "block",
+          opacity,
+          transition:
+            fadeDuration > 0
+              ? `opacity ${fadeDuration}ms ease-in-out`
+              : undefined,
+        }}
       />
       {showFrameDots && (
         <div style={{ display: "flex", gap: 4 }}>
@@ -57,9 +78,10 @@ export const ImageCycle = ({
                 width: 6,
                 height: 6,
                 borderRadius: "50%",
-                background: i === index ? "#fff" : "rgba(255,255,255,0.3)",
+                background:
+                  i === currentIndex ? "#fff" : "rgba(255,255,255,0.3)",
                 transition: "background 0.15s, transform 0.15s",
-                transform: i === index ? "scale(1.4)" : "scale(1)",
+                transform: i === currentIndex ? "scale(1.4)" : "scale(1)",
                 display: "block",
               }}
             />
