@@ -1,7 +1,6 @@
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
-  background: #dc77c4e7;
 }
 
 #root {
@@ -11,4 +10,8 @@ body {
 
 h1 {
   margin-bottom: 20px;
+}
+
+.bg-pink {
+  background-color: pink;
 }

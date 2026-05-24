@@ -35,21 +35,25 @@ export default function App() {
         width={150}
         height={150}
         showFrameDots={true}
+        className="bg-pink"
       />
 
-      <div style={{ marginTop: 20 }}>
-        <label htmlFor="image-select" style={{ marginRight: 8 }}>
-          Choose image set:
-        </label>
-        <select
-          id="image-select"
-          value={selectedSet}
-          onChange={(e) => setSelectedSet(e.target.value as ImageSetType)}
-        >
-          <option value="Walk">Walk</option>
-          <option value="Frog">Frog</option>
-        </select>
-      </div>
+      <fieldset style={{ border: "none", padding: 0, margin: 0 }}>
+        <legend style={{ marginBottom: 8 }}>Choose image set:</legend>
+        {(["Walk", "Frog"] as ImageSetType[]).map((set) => (
+          <label key={set} style={{ marginRight: 16, cursor: "pointer" }}>
+            <input
+              type="radio"
+              name="image-set"
+              value={set}
+              checked={selectedSet === set}
+              onChange={() => setSelectedSet(set)}
+              style={{ marginRight: 4 }}
+            />
+            {set}
+          </label>
+        ))}
+      </fieldset>
     </div>
   );
 }
