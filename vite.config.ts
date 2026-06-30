@@ -4,6 +4,11 @@ import dts from "vite-plugin-dts";
 import { resolve } from "node:path";
 
 export default defineConfig({
+  server: {
+    headers: {
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
+  },
   plugins: [
     react({
       jsxRuntime: "automatic",
@@ -14,7 +19,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "src/index.tsx"),
       name: "ReactImageCycle",
-      fileName: (format) => `react-image-cycle.es.js`,
+      fileName: () => `react-image-cycle.es.js`,
       formats: ["es"],
     },
     rollupOptions: {
