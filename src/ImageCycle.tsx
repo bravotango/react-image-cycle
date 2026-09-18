@@ -4,7 +4,6 @@ export interface ImageCycleProps {
   images: string[];
   interval?: number;
   width?: number;
-  height?: number;
   showFrameDots?: boolean;
   className?: string;
   fadeInOut?: boolean;
@@ -14,7 +13,6 @@ export const ImageCycle = ({
   images,
   interval = 1000,
   width = 150,
-  height = 150,
   showFrameDots = false,
   className,
   fadeInOut = false,
@@ -56,12 +54,12 @@ export const ImageCycle = ({
     >
       <img
         src={images[currentIndex]}
-        width={width}
-        height={height}
         alt={`frame ${currentIndex}`}
         className={className}
         style={{
           display: "block",
+          width,
+          height: "auto",
           opacity,
           transition:
             fadeDuration > 0
