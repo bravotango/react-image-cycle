@@ -32,8 +32,7 @@ export default function App() {
       <ImageCycle
         images={images}
         interval={200}
-        width={150}
-        height={150}
+        width={450}
         showFrameDots={true}
         className="bg-pink"
         fadeInOut={false}
