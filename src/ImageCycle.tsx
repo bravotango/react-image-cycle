@@ -18,30 +18,18 @@ export const ImageCycle = ({
   fadeInOut = false,
 }: ImageCycleProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [opacity, setOpacity] = useState(1);
-
-  // Each fade-out + fade-in = fadeDuration * 2, cap at 30% of interval total
-  const fadeDuration = fadeInOut
-    ? interval / 4 // ? Math.min(transitionDuration ?? Infinity, interval * 0.15)
-    : 0;
 
   useEffect(() => {
+    if (images.length <= 1) return;
+
     const timer = setInterval(() => {
-      if (fadeDuration > 0) {
-        setOpacity(0); // start fade out
-        setTimeout(() => {
-          setCurrentIndex((prev) => (prev + 1) % images.length);
-          setOpacity(1); // start fade in with new src
-        }, fadeDuration); // wait for fade-out to finish
-      } else {
-        setCurrentIndex((prev) => (prev + 1) % images.length);
-      }
+      setCurrentIndex((prev) => (prev + 1) % images.length);
     }, interval);
 
     return () => clearInterval(timer);
-  }, [images, interval, fadeDuration]);
+  }, [images.length, interval]);
 
-  if (!images || images.length === 0) return null;
+  if (!images.length) return null;
 
   return (
     <div
@@ -52,35 +40,44 @@ export const ImageCycle = ({
         gap: 6,
       }}
     >
-      <img
-        src={images[currentIndex]}
-        alt={`frame ${currentIndex}`}
-        className={className}
-        style={{
-          display: "block",
-          width,
-          height: "auto",
-          opacity,
-          transition:
-            fadeDuration > 0
-              ? `opacity ${fadeDuration}ms ease-in-out`
-              : undefined,
-        }}
-      />
+      <div style={{ position: "relative", width }}>
+        {images.map((src, index) => (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            aria-hidden="true"
+            className={className}
+            style={{
+              display: "block",
+              width: "100%",
+              height: "auto",
+              position: index === 0 ? "relative" : "absolute",
+              top: index === 0 ? undefined : 0,
+              left: index === 0 ? undefined : 0,
+              opacity: index === currentIndex ? 1 : 0,
+              visibility: index === currentIndex ? "visible" : "hidden",
+              transition: fadeInOut
+                ? `opacity ${interval / 4}ms ease-in-out`
+                : "none",
+            }}
+          />
+        ))}
+      </div>
+
       {showFrameDots && (
         <div style={{ display: "flex", gap: 4 }}>
-          {images.map((_, i) => (
+          {images.map((_, index) => (
             <span
-              key={i}
+              key={index}
               style={{
                 width: 6,
                 height: 6,
                 borderRadius: "50%",
                 background:
-                  i === currentIndex ? "#fff" : "rgba(255,255,255,0.3)",
+                  index === currentIndex ? "#fff" : "rgba(255,255,255,0.3)",
+                transform: index === currentIndex ? "scale(1.4)" : "scale(1)",
                 transition: "background 0.15s, transform 0.15s",
-                transform: i === currentIndex ? "scale(1.4)" : "scale(1)",
-                display: "block",
               }}
             />
           ))}
