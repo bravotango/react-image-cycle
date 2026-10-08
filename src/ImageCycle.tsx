@@ -29,6 +29,14 @@ export const ImageCycle = ({
     return () => clearInterval(timer);
   }, [images.length, interval]);
 
+  useEffect(() => {
+    console.log("ImageCycle MOUNTED");
+
+    return () => {
+      console.log("ImageCycle UNMOUNTED");
+    };
+  }, []);
+
   if (!images.length) return null;
 
   return (

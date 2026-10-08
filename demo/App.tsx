@@ -34,7 +34,6 @@ export default function App() {
         interval={200}
         width={450}
         showFrameDots={true}
-        className="bg-pink"
         fadeInOut={false}
       />
 
