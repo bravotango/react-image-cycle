@@ -36,7 +36,6 @@ export default function App() {
       images={images}
       interval={300}
       width={150}
-      height={150}
       className={"your-css-classes"}
     />
   );
@@ -61,7 +60,7 @@ export default function Frog() {
     "/frog/5.png",
   ];
 
-  return <ImageCycle images={images} interval={300} width={50} height={39} />;
+  return <ImageCycle images={images} interval={300} width={50} />;
 }
 ```
 
@@ -74,7 +73,6 @@ export default function Frog() {
 | `images`        | `string[]` | —                 | Array of image URLs (required)                     |
 | `interval`      | `number`   | `300`             | Time in milliseconds between frames                |
 | `width`         | `number`   | `150`             | Width of the image                                 |
-| `height`        | `number`   | `150`             | Height of the image                                |
 | `showFrameDots` | `boolean`  | `false`           | Show indicator dots below the image, one per frame |
 | `className`     | `string`   | `css class names` | All your class names separated by spaces           |
 | `fadeInOut`     | `boolean`  | `false`           | Fade in and out transition                         |
